@@ -40,15 +40,14 @@ void vlinha(Elementos** e, int n,int i, int j, int key)
 {
 	for(int k = 0; k < n; k ++)
 	{
-		if(j == k)
+		if(k == j)
 		{
-			k++;
 		}
 		else
 		{
 			if(e [i] [k].valor == key)
 			{
-				e [i] [k].valor = 0;
+				e [i] [j].valor = 0;
 			}
 		}
 	}
@@ -60,13 +59,12 @@ void vcoluna(Elementos** e, int n, int i, int j, int key)
 	{
 		if(k == i)
 		{
-			k ++;
 		}
 		else
 		{
 			if(e [k] [j].valor == key)
 			{
-				e [k] [j].valor = 0;
+				e [i] [j].valor = 0;
 			}
 		}
 	}
@@ -91,13 +89,12 @@ void vquadrado(Elementos** e,int n,int i,int j,int key) // validar quadrado
 		{
 			if(k == i && l == j) //pulando a key
 			{
-				l++;
 			}				
 			else
 			{
 				if(e [k] [l].valor == key)
 				{
-					e [k] [l].valor = 0; //zerar o valor repetido 
+					e [i] [j].valor = 0; //zerar o valor repetido 
 				}
 			}	
 		}	
@@ -105,7 +102,7 @@ void vquadrado(Elementos** e,int n,int i,int j,int key) // validar quadrado
 }
 
 //verifica o sudoku e gera os verificadores
-void vinivio(Elementos** e, int n)
+void vinicio(Elementos** e, int n)
 {
 	for(int i = 0; i < n; i++)
 	{
@@ -158,7 +155,7 @@ void imprime(Elementos** e, int n)
 	cont=0;
 	if((i%3)==0 && i!=0)
 			{
-				while(cont<(3*n)-2)
+				while(cont<(3*n)-6)
 				{
 				printf("_");
 				cont++;
@@ -170,7 +167,7 @@ void imprime(Elementos** e, int n)
 		{
 			if((j%3)==0 && j!=0)
 			{
-				printf(" | ");
+				printf("|");
 
 			
 			}
@@ -211,6 +208,38 @@ void imprimet(Elementos** e, int n)
 		printf("\n");
 	}
 }
+void usuario(Elementos** e,int n)
+{
+int inf=10;
+int i,j,key,count;
+printf("\n diga a linha e coluna e o valor que deseja que seja inserido");
+for(count=0;count<inf;count++)
+{
+inf++;
+printf("\n diga a linha e coluna e o valor:   ");
+scanf("%d%d%d",&i,&j,&key);
+i--;
+j--;
+if (e[i][j].verificador==1)
+{
+e[i][j].valor=key;
+vlinha(e, n, i, j, e [i] [j].valor);
+vcoluna(e, n, i, j, e [i] [j].valor);
+vquadrado(e, n, i, j, e [i] [j].valor);
+if (e[i][j].valor==0)
+{
+printf("valor nao valido pois ja existe o mesmo numero na mesma linha coluna ou quadrado\n");
+}
+imprime(e,n);
+}
+else
+{
+printf("posiçao invalida\n");
+}
+}   
+    
+
+}
 void sudoku()
 {
 	int n = 9;
@@ -219,6 +248,7 @@ void sudoku()
 	vinicio(sudoku, n);
 	imprime(sudoku, n);
 	imprimet(sudoku, n);
+    usuario(sudoku,n);
 }
 
 
@@ -228,4 +258,3 @@ void main()
 {
 	sudoku();
 }
-
