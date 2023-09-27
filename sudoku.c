@@ -40,8 +40,9 @@ void vlinha(Elementos** e, int n,int i, int j, int key)
 {
 	for(int k = 0; k < n; k ++)
 	{
-		if(k == j)
+		if(j == k)
 		{
+			k++;
 		}
 		else
 		{
@@ -59,6 +60,7 @@ void vcoluna(Elementos** e, int n, int i, int j, int key)
 	{
 		if(k == i)
 		{
+			k ++;
 		}
 		else
 		{
@@ -89,6 +91,7 @@ void vquadrado(Elementos** e,int n,int i,int j,int key) // validar quadrado
 		{
 			if(k == i && l == j) //pulando a key
 			{
+				l++;
 			}				
 			else
 			{
@@ -132,12 +135,12 @@ Elementos** gsudoku(int n)
 		{
 			if(base==0)
 			{
-			base=(rand()%12+1);
-			sudoku [i] [j].valor = (rand() % 9+1);
+				base=(rand()%12+1);
+				sudoku [i] [j].valor = (rand() % 9+1);
 			}
 			else
 			{
-			sudoku [i] [j].valor=0;
+				sudoku [i] [j].valor=0;
 			}
 			base--;
 		}
@@ -146,30 +149,34 @@ Elementos** gsudoku(int n)
 	return sudoku;
 }
 
+
+void vitoria()
+{
+	printf("vc venceu");
+}
+
 void imprime(Elementos** e, int n)
 {
-	int cont=0;
-
+	int cont = 0;
+	int v = 0;
 	for(int i = 0; i < n; i++)
 	{
-	cont=0;
-	if((i%3)==0 && i!=0)
+	cont = 0;
+	if((i%3) == 0 && i != 0)
 			{
 				while(cont<(3*n)-6)
 				{
-				printf("_");
-				cont++;
+					printf("_");
+					cont++;
 				}
 				printf("\n");
 			
 			}
 		for(int j = 0; j < n; j++)
 		{
-			if((j%3)==0 && j!=0)
+			if((j%3) == 0 && j != 0)
 			{
 				printf("|");
-
-			
 			}
 			if(e [i] [j].valor == 0)
 			{
@@ -178,6 +185,7 @@ void imprime(Elementos** e, int n)
 			else
 			{
 				printf(" %d", e [i] [j].valor);
+				v++;
 			}
 		}
 		printf("|");
@@ -185,6 +193,10 @@ void imprime(Elementos** e, int n)
 	
 	}
 	printf("\n");
+	if(v == 81)
+		vitoria();
+	
+
 }
 
 void imprimet(Elementos** e, int n)
@@ -210,35 +222,31 @@ void imprimet(Elementos** e, int n)
 }
 void usuario(Elementos** e,int n)
 {
-int inf=10;
-int i,j,key,count;
-printf("\n diga a linha e coluna e o valor que deseja que seja inserido");
-for(count=0;count<inf;count++)
-{
-inf++;
-printf("\n diga a linha e coluna e o valor:   ");
-scanf("%d%d%d",&i,&j,&key);
-i--;
-j--;
-if (e[i][j].verificador==1)
-{
-e[i][j].valor=key;
-vlinha(e, n, i, j, e [i] [j].valor);
-vcoluna(e, n, i, j, e [i] [j].valor);
-vquadrado(e, n, i, j, e [i] [j].valor);
-if (e[i][j].valor==0)
-{
-printf("valor nao valido pois ja existe o mesmo numero na mesma linha coluna ou quadrado\n");
-}
-imprime(e,n);
-}
-else
-{
-printf("posiçao invalida\n");
-}
-}   
-    
-
+	int i,j,key,count;
+	printf("\n diga a linha e coluna e o valor que deseja que seja inserido");
+	for(count=0;count<1000000;count++)
+	{
+		printf("\n diga a linha e coluna e o valor:   ");
+		scanf("%d%d%d",&i,&j,&key);
+		i--;
+		j--;
+		if (e[i][j].verificador==1)
+		{
+			e[i][j].valor=key;
+			vlinha(e, n, i, j, e [i] [j].valor);
+			vcoluna(e, n, i, j, e [i] [j].valor);
+			vquadrado(e, n, i, j, e [i] [j].valor);
+			if (e[i][j].valor==0)
+			{
+				printf("valor nao valido pois ja existe o mesmo numero na mesma linha coluna ou quadrado\n");
+			}
+			imprime(e,n);
+		}
+		else
+		{
+			printf("posiçao invalida\n");
+		}
+	}	   
 }
 void sudoku()
 {
@@ -247,8 +255,8 @@ void sudoku()
 	sudoku = gsudoku(n);
 	vinicio(sudoku, n);
 	imprime(sudoku, n);
-	imprimet(sudoku, n);
-    usuario(sudoku,n);
+	//imprimet(sudoku, n);
+  usuario(sudoku,n);
 }
 
 
