@@ -42,7 +42,6 @@ void vlinha(Elementos** e, int n,int i, int j, int key)
 	{
 		if(j == k)
 		{
-			k++;
 		}
 		else
 		{
@@ -60,7 +59,6 @@ void vcoluna(Elementos** e, int n, int i, int j, int key)
 	{
 		if(k == i)
 		{
-			k ++;
 		}
 		else
 		{
@@ -91,7 +89,6 @@ void vquadrado(Elementos** e,int n,int i,int j,int key) // validar quadrado
 		{
 			if(k == i && l == j) //pulando a key
 			{
-				l++;
 			}				
 			else
 			{
