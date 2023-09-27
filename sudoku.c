@@ -194,11 +194,13 @@ void imprime(Elementos** e, int n)
 	}
 	printf("\n");
 	if(v == 81)
+	{
 		vitoria();
-	
-
+		return;
+	}
 }
 
+/*
 void imprimet(Elementos** e, int n)
 {
 	printf("valores\n");
@@ -220,7 +222,10 @@ void imprimet(Elementos** e, int n)
 		printf("\n");
 	}
 }
-void usuario(Elementos** e,int n)
+*/
+
+
+void usuario_main(Elementos** e,int n)
 {
 	int i,j,key,count;
 	printf("\n diga a linha e coluna e o valor que deseja que seja inserido");
@@ -248,6 +253,7 @@ void usuario(Elementos** e,int n)
 		}
 	}	   
 }
+
 void sudoku()
 {
 	int n = 9;
@@ -255,8 +261,7 @@ void sudoku()
 	sudoku = gsudoku(n);
 	vinicio(sudoku, n);
 	imprime(sudoku, n);
-	//imprimet(sudoku, n);
-  usuario(sudoku,n);
+  usuario_main(sudoku,n);
 }
 
 
